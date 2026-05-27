@@ -3,151 +3,308 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WebNest Lead Agent</title>
+  <title>WebNest Lead Agent — Find Better Leads</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
-    .lead-card { animation: fadeIn 0.3s ease; }
-    tr { animation: fadeIn 0.3s ease; }
-    ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-thumb { background:#334155; border-radius:3px; }
-    .source-tag { font-size:.65rem; background:#1e3a5f; color:#93c5fd; border:1px solid #1d4ed8; border-radius:4px; padding:1px 6px; white-space:nowrap; }
-    select, input[type="text"], input[type="number"] { -webkit-appearance: none; appearance: none; }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .font-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .lead-card { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    tr { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    
+    /* Clean light-theme source tag */
+    .source-tag {
+      font-size: .65rem;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-weight: 600;
+      white-space: nowrap;
+      letter-spacing: 0.03em;
+    }
+    
+    /* Grid background pattern */
+    .bg-grid {
+      background-size: 30px 30px;
+      background-image: linear-gradient(to right, rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+    }
+    
+    select, input[type="text"], input[type="number"] {
+      -webkit-appearance: none;
+      appearance: none;
+    }
   </style>
 </head>
-<body class="bg-gray-950 text-gray-100 min-h-screen font-sans">
+<body class="bg-[#fafbfe] text-slate-800 min-h-screen relative overflow-x-hidden bg-grid">
+
+  <!-- Glowing background blobs -->
+  <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-200/30 rounded-full filter blur-3xl opacity-60 -z-10 animate-pulse" style="animation-duration: 10s;"></div>
+  <div class="absolute top-[5%] right-[-10%] w-[45%] h-[45%] bg-blue-200/30 rounded-full filter blur-3xl opacity-60 -z-10 animate-pulse" style="animation-duration: 15s;"></div>
 
   <!-- Header -->
-  <header class="border-b border-gray-800 bg-gray-900 px-4 py-3 flex items-center gap-3 sticky top-0 z-10">
-    <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm shrink-0">W</div>
-    <div class="min-w-0">
-      <h1 class="font-semibold text-white text-base leading-none truncate">WebNest Lead Agent</h1>
-      <p class="text-xs text-gray-400 mt-0.5">AI-powered business lead finder</p>
+  <header class="border-b border-slate-200/60 bg-white/70 backdrop-blur-md px-6 py-4 sticky top-0 z-50 transition-all">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-indigo-200">W</div>
+        <div class="min-w-0">
+          <h1 class="font-heading font-extrabold text-slate-900 text-lg leading-none tracking-tight">WebNest <span class="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Lead Agent</span></h1>
+          <p class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">AI Lead Mining</p>
+        </div>
+      </div>
+      
+      <!-- Minimalist status indicator -->
+      <div class="flex items-center gap-2 bg-slate-50 border border-slate-200/60 rounded-full px-3.5 py-1.5 shadow-sm text-xs text-slate-500 font-medium">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+        <span class="w-2 h-2 rounded-full bg-emerald-500 absolute"></span>
+        <span>Agent Online</span>
+      </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16 relative">
+    
+    <!-- Decorative background doodles/shapes -->
+    <div class="absolute right-10 top-20 text-slate-200 pointer-events-none -z-10 hidden xl:block">
+      <!-- Dotted grid graph doodle -->
+      <svg width="180" height="180" fill="none" viewBox="0 0 180 180" class="text-indigo-200/40">
+        <defs>
+          <pattern id="dot-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="2" fill="currentColor" />
+          </pattern>
+        </defs>
+        <rect width="180" height="180" fill="url(#dot-pattern)" />
+      </svg>
+    </div>
+    
+    <div class="absolute left-10 bottom-40 text-slate-200 pointer-events-none -z-10 hidden xl:block">
+      <!-- Fun connection line doodle -->
+      <svg width="120" height="120" fill="none" viewBox="0 0 120 120" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4" class="text-purple-200/60">
+        <path d="M10 80 Q 50 10, 110 50" />
+        <circle cx="10" cy="80" r="4" fill="currentColor" />
+        <circle cx="110" cy="50" r="4" fill="currentColor" />
+      </svg>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-600 border border-indigo-100/80 mb-6 shadow-sm shadow-indigo-100/10">
+        <span class="flex h-2 w-2 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
+        </span>
+        ✨ Discover Opportunities Instantly
+      </div>
+      
+      <h2 class="font-heading text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight mb-4">
+        Find Better <span class="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Leads.</span>
+      </h2>
+      
+      <p class="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-slate-500 leading-relaxed font-body">
+        Search businesses, collect contact details, and discover opportunities with AI.
+      </p>
+    </div>
 
     <!-- Search Form -->
-    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6">
-      <h2 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 sm:mb-4">Search Parameters</h2>
+    <div class="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-8 mb-8 shadow-xl shadow-slate-100/50 max-w-5xl mx-auto relative overflow-hidden">
+      <!-- Glow background inside form -->
+      <div class="absolute -right-20 -bottom-20 w-60 h-60 bg-gradient-to-br from-purple-100/40 to-indigo-100/40 rounded-full filter blur-2xl opacity-70 pointer-events-none"></div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-        <div>
-          <label class="block text-xs text-gray-400 mb-1.5">Business Niche</label>
-          <select id="businessType" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
-            <option>Dental Clinics</option>
-            <option>Gyms</option>
-            <option>Restaurants</option>
-            <option>Cafes</option>
-            <option>Salons</option>
-            <option>Coaching Centers</option>
-            <option>Hospitals</option>
-            <option>Pharmacies</option>
-            <option>Hotels</option>
-            <option>Spas</option>
-          </select>
+      <div class="relative animate-fadeIn">
+        <div class="flex items-center gap-2 mb-6">
+          <div class="p-1.5 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-600">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-slate-800 text-sm tracking-wide">Search Parameters</h3>
         </div>
 
-        <div>
-          <label class="block text-xs text-gray-400 mb-1.5">Location</label>
-          <input id="location" type="text" value="Guwahati, Assam"
-            class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
-            placeholder="e.g. Guwahati, Assam" />
-        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-end">
+          
+          <!-- Niche Selection -->
+          <div class="md:col-span-4">
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Business Niche</label>
+            <div class="relative rounded-xl border border-slate-200 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-100/50 bg-slate-50/50 transition-all duration-200">
+              <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <select id="businessType" class="w-full bg-transparent pl-11 pr-10 py-3.5 text-sm text-slate-800 focus:outline-none placeholder-slate-400 font-semibold appearance-none cursor-pointer">
+                <option>Dental Clinics</option>
+                <option>Gyms</option>
+                <option>Restaurants</option>
+                <option>Cafes</option>
+                <option>Salons</option>
+                <option>Coaching Centers</option>
+                <option>Hospitals</option>
+                <option>Pharmacies</option>
+                <option>Hotels</option>
+                <option>Spas</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-slate-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
 
-        <div>
-          <label class="block text-xs text-gray-400 mb-1.5">Max Leads</label>
-          <input id="maxLeads" type="number" value="20" min="1" max="100"
-            class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-3 text-sm text-white focus:outline-none focus:border-blue-500" />
-        </div>
+          <!-- Location Input -->
+          <div class="md:col-span-4">
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Location</label>
+            <div class="relative rounded-xl border border-slate-200 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-100/50 bg-slate-50/50 transition-all duration-200">
+              <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <input id="location" type="text" value="Guwahati, Assam"
+                class="w-full bg-transparent pl-11 pr-4 py-3.5 text-sm text-slate-800 font-semibold focus:outline-none placeholder-slate-400"
+                placeholder="e.g. Guwahati, Assam" />
+            </div>
+          </div>
 
-        <!-- Action buttons -->
-        <div class="flex gap-2 sm:items-end">
-          <button onclick="startSearch()" id="searchBtn"
-            class="flex-1 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-semibold rounded-lg px-4 py-3 text-sm transition-colors flex items-center justify-center gap-2">
-            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            Search
-          </button>
-          <button onclick="stopSearch()" id="stopBtn"
-            class="hidden bg-red-600 hover:bg-red-500 active:bg-red-700 text-white font-semibold rounded-lg px-4 py-3 text-sm transition-colors flex items-center justify-center gap-2">
-            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            Stop
-          </button>
-          <button onclick="downloadCSV()" id="downloadBtn" disabled
-            class="bg-gray-700 hover:bg-gray-600 active:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold rounded-lg px-3 py-3 text-sm transition-colors flex items-center justify-center gap-1.5 shrink-0">
-            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-            <span class="hidden sm:inline">CSV</span>
-          </button>
+          <!-- Max Leads Input -->
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Max Leads</label>
+            <div class="relative rounded-xl border border-slate-200 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-100/50 bg-slate-50/50 transition-all duration-200">
+              <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+              <input id="maxLeads" type="number" value="20" min="1" max="100"
+                class="w-full bg-transparent pl-11 pr-4 py-3.5 text-sm text-slate-800 font-semibold focus:outline-none placeholder-slate-400" />
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="md:col-span-2 flex gap-2">
+            <button onclick="startSearch()" id="searchBtn"
+              class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 active:scale-95 text-white font-bold rounded-xl px-4 py-3.5 text-sm transition-all shadow-md shadow-indigo-100 flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-indigo-200/50">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              Search
+            </button>
+            
+            <button onclick="stopSearch()" id="stopBtn"
+              class="hidden w-full bg-rose-500 hover:bg-rose-600 active:scale-95 text-white font-bold rounded-xl px-4 py-3.5 text-sm transition-all shadow-md shadow-rose-100 flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-rose-200/50">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+              Stop
+            </button>
+            
+            <button onclick="downloadCSV()" id="downloadBtn" disabled
+              class="bg-slate-100 hover:bg-slate-200 border border-slate-200 active:scale-95 disabled:opacity-40 disabled:hover:bg-slate-100 disabled:cursor-not-allowed text-slate-700 font-bold rounded-xl px-4 py-3.5 text-sm transition-all flex items-center justify-center gap-2 shrink-0">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span class="hidden sm:inline">CSV</span>
+            </button>
+          </div>
+          
         </div>
       </div>
 
       <!-- Status bar -->
-      <div id="statusBar" class="hidden mt-3 flex items-center gap-2.5 bg-gray-800/60 rounded-xl px-3 py-2.5">
-        <div id="spinner" class="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin hidden shrink-0"></div>
-        <p id="statusMsg" class="text-xs sm:text-sm text-gray-300 leading-snug"></p>
+      <div id="statusBar" class="hidden mt-6 flex items-center gap-3 bg-indigo-50/50 border border-indigo-100/50 rounded-2xl px-4 py-3.5 transition-all duration-300">
+        <div id="spinner" class="w-4.5 h-4.5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin hidden shrink-0"></div>
+        <p id="statusMsg" class="text-xs sm:text-sm text-indigo-950 font-semibold leading-none"></p>
       </div>
     </div>
 
-    <!-- Stats -->
-    <div id="stats" class="hidden grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 mb-4 sm:mb-6">
-      <div class="bg-gray-900 border border-gray-800 rounded-xl p-3 sm:p-4">
-        <p class="text-xs text-gray-500 mb-1">Total</p>
-        <p id="statTotal" class="text-xl sm:text-2xl font-bold text-white">0</p>
+    <!-- Stats Dashboard Section -->
+    <div id="stats" class="hidden grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-5xl mx-auto">
+      <!-- Total Leads -->
+      <div class="bg-white border border-slate-200/85 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300 flex items-center gap-4">
+        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center border border-indigo-100 shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+        </div>
+        <div>
+          <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Leads</p>
+          <p id="statTotal" class="text-2xl font-extrabold text-slate-800 mt-0.5 leading-none">0</p>
+        </div>
       </div>
-      <div class="bg-gray-900 border border-red-900/40 rounded-xl p-3 sm:p-4">
-        <p class="text-xs text-gray-500 mb-1">🔥 Hot</p>
-        <p id="statHot" class="text-xl sm:text-2xl font-bold text-red-400">0</p>
+      
+      <!-- Hot Leads -->
+      <div class="bg-white border border-rose-200/85 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300 flex items-center gap-4">
+        <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center border border-rose-100 shrink-0">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.921-.21.366-.328.77-.328 1.17 0 .428.09.832.257 1.196.168.365.4.678.68.918c.28.24.606.41.956.502.35.092.713.084 1.057-.024a1 1 0 00.566-.738 1 1 0 00-.334-1.026c-.34-.253-.614-.576-.798-.95A3.754 3.754 0 0111.5 5c0-.448.119-.877.34-1.246.222-.37.534-.67.892-.865a1 1 0 00.163-1.336zM3.447 8.077a1 1 0 01.378-1.364 5 5 0 017.96 2.253 1 1 0 01-.753 1.258 1 1 0 01-1.258-.753 3 3 0 00-4.776-1.352 1 1 0 01-1.364-.378z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+        </div>
+        <div>
+          <p class="text-[10px] font-bold text-rose-500 uppercase tracking-wider">🔥 Hot Leads</p>
+          <p id="statHot" class="text-2xl font-extrabold text-rose-600 mt-0.5 leading-none">0</p>
+        </div>
       </div>
-      <div class="bg-gray-900 border border-yellow-900/40 rounded-xl p-3 sm:p-4">
-        <p class="text-xs text-gray-500 mb-1">🟡 Medium</p>
-        <p id="statMed" class="text-xl sm:text-2xl font-bold text-yellow-400">0</p>
+
+      <!-- Medium Leads -->
+      <div class="bg-white border border-amber-200/85 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300 flex items-center gap-4">
+        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-100 shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <div>
+          <p class="text-[10px] font-bold text-amber-500 uppercase tracking-wider">🟡 Medium</p>
+          <p id="statMed" class="text-2xl font-extrabold text-amber-600 mt-0.5 leading-none">0</p>
+        </div>
       </div>
-      <div class="bg-gray-900 border border-green-900/40 rounded-xl p-3 sm:p-4">
-        <p class="text-xs text-gray-500 mb-1">🟢 Low</p>
-        <p id="statLow" class="text-xl sm:text-2xl font-bold text-green-400">0</p>
+
+      <!-- Low Leads -->
+      <div class="bg-white border border-emerald-200/85 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300 flex items-center gap-4">
+        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100 shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div>
+          <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">🟢 Low Leads</p>
+          <p id="statLow" class="text-2xl font-extrabold text-emerald-600 mt-0.5 leading-none">0</p>
+        </div>
       </div>
     </div>
 
     <!-- Filter bar -->
-    <div id="filterBar" class="hidden mb-3 sm:mb-4 space-y-2">
+    <div id="filterBar" class="hidden mb-6 max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div class="flex flex-wrap gap-2">
-        <button onclick="filterLeads('ALL')"         class="filter-btn px-3 py-1.5 rounded-full text-xs font-medium border border-blue-500 text-blue-400 transition-colors">All</button>
-        <button onclick="filterLeads('HOT LEAD')"    class="filter-btn px-3 py-1.5 rounded-full text-xs font-medium border border-gray-600 text-gray-300 hover:border-red-500 hover:text-red-400 transition-colors">🔥 Hot</button>
-        <button onclick="filterLeads('MEDIUM LEAD')" class="filter-btn px-3 py-1.5 rounded-full text-xs font-medium border border-gray-600 text-gray-300 hover:border-yellow-500 hover:text-yellow-400 transition-colors">🟡 Medium</button>
-        <button onclick="filterLeads('LOW LEAD')"    class="filter-btn px-3 py-1.5 rounded-full text-xs font-medium border border-gray-600 text-gray-300 hover:border-green-500 hover:text-green-400 transition-colors">🟢 Low</button>
+        <button onclick="filterLeads('ALL')"         class="filter-btn px-4 py-2 rounded-full text-xs font-bold border transition-all duration-200 bg-indigo-50 border-indigo-200 text-indigo-600 shadow-sm">All</button>
+        <button onclick="filterLeads('HOT LEAD')"    class="filter-btn px-4 py-2 rounded-full text-xs font-bold border transition-all duration-200 bg-white border-slate-200 text-slate-500 hover:border-slate-300 hover:text-slate-700">🔥 Hot</button>
+        <button onclick="filterLeads('MEDIUM LEAD')" class="filter-btn px-4 py-2 rounded-full text-xs font-bold border transition-all duration-200 bg-white border-slate-200 text-slate-500 hover:border-slate-300 hover:text-slate-700">🟡 Medium</button>
+        <button onclick="filterLeads('LOW LEAD')"    class="filter-btn px-4 py-2 rounded-full text-xs font-bold border transition-all duration-200 bg-white border-slate-200 text-slate-500 hover:border-slate-300 hover:text-slate-700">🟢 Low</button>
       </div>
-      <input id="searchFilter" oninput="filterLeads()" placeholder="🔎 Filter by business name..."
-        class="w-full sm:w-64 bg-gray-800 border border-gray-700 rounded-full px-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-blue-500" />
+      <div class="relative w-full sm:w-72">
+        <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input id="searchFilter" oninput="filterLeads()" placeholder="Filter by business name..."
+          class="w-full bg-white border border-slate-200 rounded-full pl-10 pr-4 py-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100/50 transition-all font-semibold" />
+      </div>
     </div>
 
     <!-- Mobile Cards (visible on small screens) -->
-    <div id="cardsWrap" class="hidden sm:hidden space-y-3 mb-4"></div>
+    <div id="cardsWrap" class="hidden sm:hidden space-y-4 mb-8 max-w-5xl mx-auto"></div>
 
     <!-- Desktop Table (hidden on small screens) -->
-    <div id="tableWrap" class="hidden bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+    <div id="tableWrap" class="hidden bg-white border border-slate-200/80 rounded-3xl overflow-hidden shadow-xl shadow-slate-100/30 max-w-5xl mx-auto mb-8">
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-gray-800 text-xs text-gray-500 uppercase tracking-wider">
-              <th class="text-left px-4 py-3">#</th>
-              <th class="text-left px-4 py-3">Business</th>
-              <th class="text-left px-4 py-3">Phone</th>
-              <th class="text-left px-4 py-3">Address</th>
-              <th class="text-left px-4 py-3">Website</th>
-              <th class="text-left px-4 py-3">Socials</th>
-              <th class="text-left px-4 py-3">Source</th>
-              <th class="text-left px-4 py-3">Score</th>
+            <tr class="bg-slate-50/75 border-b border-slate-200 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+              <th class="text-left px-6 py-4">#</th>
+              <th class="text-left px-6 py-4">Business</th>
+              <th class="text-left px-6 py-4">Phone</th>
+              <th class="text-left px-6 py-4">Address</th>
+              <th class="text-left px-6 py-4">Website</th>
+              <th class="text-left px-6 py-4">Socials</th>
+              <th class="text-left px-6 py-4">Source</th>
+              <th class="text-left px-6 py-4">Score</th>
             </tr>
           </thead>
-          <tbody id="leadsTable"></tbody>
+          <tbody id="leadsTable" class="divide-y divide-slate-100 font-medium"></tbody>
         </table>
       </div>
     </div>
 
     <!-- Empty state -->
-    <div id="emptyState" class="hidden text-center py-16 text-gray-600">
-      <svg class="w-12 h-12 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      <p class="text-sm">No leads found. Try a different niche or location.</p>
+    <div id="emptyState" class="hidden text-center py-20 text-slate-400 max-w-md mx-auto">
+      <div class="w-16 h-16 bg-slate-100 text-slate-300 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200/60 shadow-inner">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9 10.5h.01M15 10.5h.01"/></svg>
+      </div>
+      <h4 class="font-heading font-bold text-slate-700 mb-1">No Leads Found</h4>
+      <p class="text-xs text-slate-400">Try adjusting your search criteria by changing the niche or location parameters.</p>
     </div>
 
   </main>
@@ -236,41 +393,45 @@
   function appendRow(lead, idx) {
     const score = lead.leadScore || '';
     const badgeClass = score === 'HOT LEAD'
-      ? 'bg-red-900/40 text-red-400 border-red-800'
+      ? 'bg-rose-50 text-rose-600 border-rose-100'
       : score === 'MEDIUM LEAD'
-      ? 'bg-yellow-900/40 text-yellow-400 border-yellow-800'
-      : 'bg-green-900/40 text-green-400 border-green-800';
+      ? 'bg-amber-50 text-amber-600 border-amber-100'
+      : 'bg-emerald-50 text-emerald-600 border-emerald-100';
 
     const website = lead.website
-      ? `<a href="${lead.website}" target="_blank" class="text-blue-400 hover:underline truncate max-w-[120px] block">${lead.website.replace(/https?:\/\/(www\.)?/,'').split('/')[0]}</a>`
-      : `<span class="text-gray-600 text-xs">—</span>`;
+      ? `<a href="${lead.website}" target="_blank" class="inline-flex items-center gap-1 text-purple-600 hover:text-purple-700 hover:underline font-semibold truncate max-w-[140px]"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>${lead.website.replace(/https?:\/\/(www\.)?/,'').split('/')[0]}</a>`
+      : `<span class="text-slate-300 font-normal">—</span>`;
+
+    const instagramSvg = `<svg class="w-4 h-4 text-pink-500 hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>`;
+    const facebookSvg = `<svg class="w-4 h-4 text-blue-600 hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`;
+    const linkedinSvg = `<svg class="w-4 h-4 text-sky-600 hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0h.003z"/></svg>`;
 
     const socials = [
-      lead.instagram ? `<a href="${lead.instagram}" target="_blank" class="text-pink-400 hover:text-pink-300 text-xs">IG</a>` : '',
-      lead.facebook  ? `<a href="${lead.facebook}"  target="_blank" class="text-blue-400 hover:text-blue-300 text-xs">FB</a>` : '',
-      lead.linkedin  ? `<a href="${lead.linkedin}"  target="_blank" class="text-sky-400 hover:text-sky-300 text-xs">LI</a>`  : '',
+      lead.instagram ? `<a href="${lead.instagram}" target="_blank" title="Instagram">${instagramSvg}</a>` : '',
+      lead.facebook  ? `<a href="${lead.facebook}"  target="_blank" title="Facebook">${facebookSvg}</a>` : '',
+      lead.linkedin  ? `<a href="${lead.linkedin}"  target="_blank" title="LinkedIn">${linkedinSvg}</a>` : '',
     ].filter(Boolean).join(' ');
 
     const mapsLink = lead.googleMapsLink
-      ? `<a href="${lead.googleMapsLink}" target="_blank" class="text-gray-400 hover:text-white text-xs underline">${(lead.address||'').substring(0,28)||'View'}</a>`
-      : `<span class="text-gray-600 text-xs">${(lead.address||'').substring(0,28)||'—'}</span>`;
+      ? `<a href="${lead.googleMapsLink}" target="_blank" class="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-700 hover:underline text-xs font-semibold"><svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>${(lead.address||'').substring(0,25)||'View on Map'}...</a>`
+      : `<span class="text-slate-400 text-xs font-normal">${(lead.address||'').substring(0,25)||'—'}</span>`;
 
     const tr = document.createElement('tr');
     tr.dataset.score = score;
     tr.dataset.name  = (lead.businessName||'').toLowerCase();
-    tr.className = 'border-b border-gray-800/60 hover:bg-gray-800/40 transition-colors';
+    tr.className = 'border-b border-slate-100 hover:bg-slate-50/50 transition-colors duration-200';
     tr.innerHTML = `
-      <td class="px-4 py-3 text-gray-500 text-xs">${idx}</td>
-      <td class="px-4 py-3">
-        <p class="font-medium text-white text-sm">${lead.businessName||'—'}</p>
-        <p class="text-xs text-gray-500 mt-0.5">${lead.reason||''}</p>
+      <td class="px-6 py-4 text-slate-400 text-xs font-semibold">${idx}</td>
+      <td class="px-6 py-4">
+        <p class="font-bold text-slate-800 text-sm leading-snug">${lead.businessName||'—'}</p>
+        <p class="text-xs text-slate-400 mt-0.5 max-w-[280px] break-words line-clamp-2">${lead.reason||''}</p>
       </td>
-      <td class="px-4 py-3 text-gray-300 text-xs whitespace-nowrap">${lead.phone||'<span class="text-gray-600">—</span>'}</td>
-      <td class="px-4 py-3 text-gray-400 text-xs max-w-[160px]">${mapsLink}</td>
-      <td class="px-4 py-3">${website}</td>
-      <td class="px-4 py-3"><div class="flex gap-1.5 items-center">${socials||'<span class="text-gray-600 text-xs">—</span>'}</div></td>
-      <td class="px-4 py-3"><span class="source-tag">${lead.source||'—'}</span></td>
-      <td class="px-4 py-3"><span class="text-xs font-semibold px-2 py-1 rounded-full border ${badgeClass}">${score}</span></td>
+      <td class="px-6 py-4 text-slate-600 text-xs font-semibold whitespace-nowrap">${lead.phone||'<span class="text-slate-300 font-normal">—</span>'}</td>
+      <td class="px-6 py-4 text-slate-500 text-xs max-w-[200px] truncate">${mapsLink}</td>
+      <td class="px-6 py-4">${website}</td>
+      <td class="px-6 py-4"><div class="flex gap-2 items-center">${socials||'<span class="text-slate-300 text-xs font-normal">—</span>'}</div></td>
+      <td class="px-6 py-4"><span class="source-tag">${lead.source||'—'}</span></td>
+      <td class="px-6 py-4"><span class="text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full border ${badgeClass}">${score}</span></td>
     `;
     document.getElementById('leadsTable').appendChild(tr);
   }
@@ -279,37 +440,41 @@
   function appendCard(lead, idx) {
     const score = lead.leadScore || '';
     const badgeClass = score === 'HOT LEAD'
-      ? 'bg-red-900/40 text-red-400 border-red-800'
+      ? 'bg-rose-50 text-rose-600 border-rose-100'
       : score === 'MEDIUM LEAD'
-      ? 'bg-yellow-900/40 text-yellow-400 border-yellow-800'
-      : 'bg-green-900/40 text-green-400 border-green-800';
+      ? 'bg-amber-50 text-amber-600 border-amber-100'
+      : 'bg-emerald-50 text-emerald-600 border-emerald-100';
+
+    const instagramSvg = `<svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>`;
+    const facebookSvg = `<svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`;
+    const linkedinSvg = `<svg class="w-4 h-4 text-sky-600" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0h.003z"/></svg>`;
 
     const socials = [
-      lead.instagram ? `<a href="${lead.instagram}" target="_blank" class="text-pink-400 text-xs font-medium">Instagram</a>` : '',
-      lead.facebook  ? `<a href="${lead.facebook}"  target="_blank" class="text-blue-400 text-xs font-medium">Facebook</a>`  : '',
-      lead.linkedin  ? `<a href="${lead.linkedin}"  target="_blank" class="text-sky-400 text-xs font-medium">LinkedIn</a>`   : '',
-    ].filter(Boolean).join('<span class="text-gray-700 mx-1">·</span>');
+      lead.instagram ? `<a href="${lead.instagram}" target="_blank" class="inline-flex items-center gap-1 bg-pink-50 text-pink-600 px-2.5 py-1 rounded-lg border border-pink-100 font-semibold text-[11px]">${instagramSvg} Instagram</a>` : '',
+      lead.facebook  ? `<a href="${lead.facebook}"  target="_blank" class="inline-flex items-center gap-1 bg-blue-50 text-blue-600 px-2.5 py-1 rounded-lg border border-blue-100 font-semibold text-[11px]">${facebookSvg} Facebook</a>`  : '',
+      lead.linkedin  ? `<a href="${lead.linkedin}"  target="_blank" class="inline-flex items-center gap-1 bg-sky-50 text-sky-600 px-2.5 py-1 rounded-lg border border-sky-100 font-semibold text-[11px]">${linkedinSvg} LinkedIn</a>`   : '',
+    ].filter(Boolean).join(' ');
 
     const card = document.createElement('div');
     card.dataset.score = score;
     card.dataset.name  = (lead.businessName||'').toLowerCase();
-    card.className = 'lead-card bg-gray-900 border border-gray-800 rounded-xl p-4';
+    card.className = 'lead-card bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow duration-300';
     card.innerHTML = `
-      <div class="flex items-start justify-between gap-2 mb-2">
+      <div class="flex items-start justify-between gap-3 mb-3">
         <div class="min-w-0">
-          <p class="font-semibold text-white text-sm leading-snug">${lead.businessName||'—'}</p>
-          <p class="text-xs text-gray-500 mt-0.5">${lead.reason||''}</p>
+          <p class="font-bold text-slate-800 text-base leading-snug">${lead.businessName||'—'}</p>
+          <p class="text-xs text-slate-400 mt-1">${lead.reason||''}</p>
         </div>
-        <span class="text-xs font-semibold px-2 py-1 rounded-full border shrink-0 ${badgeClass}">${score.replace(' LEAD','')}</span>
+        <span class="text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full border shrink-0 ${badgeClass}">${score.replace(' LEAD','')}</span>
       </div>
-      <div class="space-y-1.5 text-xs">
-        ${lead.phone ? `<div class="flex items-center gap-2"><span class="text-gray-500 w-14 shrink-0">Phone</span><a href="tel:${lead.phone}" class="text-green-400 font-medium">${lead.phone}</a></div>` : ''}
-        ${lead.address ? `<div class="flex items-start gap-2"><span class="text-gray-500 w-14 shrink-0">Address</span><span class="text-gray-300">${lead.address}</span></div>` : ''}
-        ${lead.website ? `<div class="flex items-center gap-2"><span class="text-gray-500 w-14 shrink-0">Website</span><a href="${lead.website}" target="_blank" class="text-blue-400 truncate">${lead.website.replace(/https?:\/\/(www\.)?/,'').split('/')[0]}</a></div>` : ''}
-        ${socials ? `<div class="flex items-center gap-2"><span class="text-gray-500 w-14 shrink-0">Socials</span><div class="flex gap-1">${socials}</div></div>` : ''}
-        <div class="flex items-center gap-2 pt-1 border-t border-gray-800 mt-2">
+      <div class="space-y-2.5 text-xs text-slate-600 pt-3 border-t border-slate-100">
+        ${lead.phone ? `<div class="flex items-center gap-2"><span class="text-slate-400 w-16 shrink-0 font-medium">Phone</span><a href="tel:${lead.phone}" class="text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100/50">${lead.phone}</a></div>` : ''}
+        ${lead.address ? `<div class="flex items-start gap-2"><span class="text-slate-400 w-16 shrink-0 font-medium">Address</span><span class="text-slate-600">${lead.address}</span></div>` : ''}
+        ${lead.website ? `<div class="flex items-center gap-2"><span class="text-slate-400 w-16 shrink-0 font-medium">Website</span><a href="${lead.website}" target="_blank" class="text-purple-600 font-semibold hover:underline truncate">${lead.website.replace(/https?:\/\/(www\.)?/,'').split('/')[0]}</a></div>` : ''}
+        ${socials ? `<div class="flex items-start gap-2"><span class="text-slate-400 w-16 shrink-0 font-medium">Socials</span><div class="flex flex-wrap gap-1.5">${socials}</div></div>` : ''}
+        <div class="flex items-center gap-2 pt-3 border-t border-slate-100 mt-3">
           <span class="source-tag">${lead.source||'—'}</span>
-          ${lead.googleMapsLink ? `<a href="${lead.googleMapsLink}" target="_blank" class="text-gray-400 hover:text-white underline ml-auto">View on Map</a>` : ''}
+          ${lead.googleMapsLink ? `<a href="${lead.googleMapsLink}" target="_blank" class="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-700 font-semibold underline ml-auto text-[11px]"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Map</a>` : ''}
         </div>
       </div>
     `;
@@ -334,10 +499,10 @@
       const labelMap = { ALL: 'All', 'HOT LEAD': '🔥 Hot', 'MEDIUM LEAD': '🟡 Medium', 'LOW LEAD': '🟢 Low' };
       document.querySelectorAll('.filter-btn').forEach(btn => {
         const active = btn.textContent.trim() === labelMap[score];
-        btn.classList.toggle('border-blue-500', active);
-        btn.classList.toggle('text-blue-400', active);
-        btn.classList.toggle('border-gray-600', !active);
-        btn.classList.toggle('text-gray-300', !active);
+        btn.className = 'filter-btn px-4 py-2 rounded-full text-xs font-bold border transition-all duration-200 ' +
+          (active 
+            ? 'bg-indigo-50 border-indigo-200 text-indigo-600 shadow-sm' 
+            : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300 hover:text-slate-700');
       });
     }
     const query = document.getElementById('searchFilter').value.toLowerCase();
